@@ -8,13 +8,16 @@
     android:orientation="vertical">
 
     <TextView android:id="@+id/user_answer"
-        android:text="@plurals/user_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <TextView android:id="@+id/user_total"
-        android:text="@plurals/user_total"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button android:id="@+id/summary_next"
+        android:text="@string/summary_next"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

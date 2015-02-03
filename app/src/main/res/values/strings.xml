@@ -15,12 +15,12 @@
     <!--<string name="user_answer">You chose %s for your answer. The correct answer is .</string>-->
     <!--<string name="user_total">You have %d out of  correct.</string>-->
 
-    <plurals name="user_answer"
-        formatted="false">
-        <item quantity="other">You chose %s for your answer. The correct answer is %s.</item>
-    </plurals>
-    <plurals name="user_total">
-        <item quantity="other">You have %d out of %d correct.</item>
-    </plurals>
+    <!--<plurals name="user_answer"-->
+        <!--formatted="false">-->
+        <!--<item quantity="other">You chose %s for your answer. The correct answer is %s.</item>-->
+    <!--</plurals>-->
+    <!--<plurals name="user_total">-->
+        <!--<item quantity="other">You have %d out of %d correct.</item>-->
+    <!--</plurals>-->
 
 </resources>

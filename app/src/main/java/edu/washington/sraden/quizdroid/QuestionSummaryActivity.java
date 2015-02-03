@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -16,16 +18,18 @@ import java.util.ArrayList;
 public class QuestionSummaryActivity extends ActionBarActivity {
 
     private final String TAG = "QuestionSummaryActivity";
+    private boolean noMoreQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_summary);
 
+        noMoreQuestions = false; //intitalize noMoreQuestions
+
         Intent thisActivity = getIntent();
-        int userAnswerInt = thisActivity.getIntExtra("userAnswer", 0);
-        Topic topic = (Topic) thisActivity.getSerializableExtra("topic");
-        //final Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Topic object
+        int userAnswerInt = thisActivity.getIntExtra("userAnswer", 0); //Intents user answer
+        Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Grabs Topic from intent
 
         ArrayList<Question> topicQuestionList = topic.getQuestions();
 
@@ -36,14 +40,40 @@ public class QuestionSummaryActivity extends ActionBarActivity {
         String correctAnswerTxt = currQuestionOptions.get(currQuestion.getCorrectOption());
 
         TextView userAnswer = (TextView) findViewById(R.id.user_answer);
-        userAnswer.setText(String.format(getResources().getString(R.string.user_answer),
-                userAnswerTxt, correctAnswerTxt));//, correctAnswerTxt));
+        userAnswer.setText("You chose " + userAnswerTxt +
+                " for your answer. The correct answer is " + correctAnswerTxt + ".");//, correctAnswerTxt));
 
         TextView userTotal = (TextView) findViewById(R.id.user_total);
-        userTotal.setText(String.format(getResources().getString(R.string.user_total),
-                topic.getTotalCorrect(), topic.getCurrQuestion()));//, topic.getCurrQuestion()));
+        userTotal.setText("You have " + topic.getTotalCorrect() +
+                " out of " + (topic.getCurrQuestion() + 1) + " correct.");//, topic.getCurrQuestion()));
 
-        topic.incrementCurrentQuestion(); //Increments to next question
+        final Topic toSend = topic;
+        Button bNextQuestion = (Button) findViewById(R.id.summary_next);
+
+        if (topicQuestionList.size() - 1 == topic.getCurrQuestion()) {
+            bNextQuestion.setText("Return to Home");
+            noMoreQuestions = true;
+        }
+
+        bNextQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!noMoreQuestions) {
+                    toSend.incrementCurrentQuestion();
+
+                    // cannot use just this cuz this refers to the listener, not the outer this
+                    Intent nextActivity = new Intent(QuestionSummaryActivity.this, QuestionActivity.class);
+
+                    nextActivity.putExtra("topic", toSend);
+
+                    startActivity(nextActivity);
+                } else {
+                    Intent nextActivity = new Intent(QuestionSummaryActivity.this, TopicActivity.class);
+                    startActivity(nextActivity);
+                }
+                finish(); // kill this instance self (this activity)
+            }
+        });
     }
 
 

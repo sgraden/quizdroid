@@ -27,9 +27,9 @@ public class QuestionActivity extends ActionBarActivity {
         chosenValue = -1; //Initializes
 
         Intent thisActivity = getIntent();
-        int currQuestionInt = thisActivity.getIntExtra("currQuestion", 0); //Current question int
+        //int currQuestionInt = thisActivity.getIntExtra("currQuestion", 0); //Current question int
         Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Topic object
-        currQuestion = topic.getQuestions().get(currQuestionInt); //Current question object
+        currQuestion = topic.getQuestions().get(topic.getCurrQuestion()); //Current question object
 
         //Sets question text
         TextView questionText = (TextView) findViewById(R.id.question_text); //Text for question
@@ -49,8 +49,6 @@ public class QuestionActivity extends ActionBarActivity {
                     if (chosenValue == currQuestion.getCorrectOption()) {
                         toSend.incrementTotalCorrect();
                     }
-                    //topic.incrementCurrentQuestion();
-
                     // cannot use just this cuz this refers to the listener, not the outer this
                     Intent nextActivity = new Intent(QuestionActivity.this, QuestionSummaryActivity.class);
 
