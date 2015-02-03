@@ -21,6 +21,7 @@ public class Topic implements Serializable {
         this.description = description;
         this.questions = questions;
         this.currQuestion = currQuestion;
+        this.totalCorrect = totalCorrect;
         //this.totalComplete = totalComplete;
 
     }

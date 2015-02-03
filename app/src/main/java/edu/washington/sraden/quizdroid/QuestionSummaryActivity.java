@@ -27,7 +27,9 @@ public class QuestionSummaryActivity extends ActionBarActivity {
         Topic topic = (Topic) thisActivity.getSerializableExtra("topic");
         //final Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Topic object
 
-        Question currQuestion = topic.getQuestions().get(topic.getCurrQuestion());
+        ArrayList<Question> topicQuestionList = topic.getQuestions();
+
+        Question currQuestion = topicQuestionList.get(topic.getCurrQuestion());
         ArrayList<String> currQuestionOptions = currQuestion.getOptions();
 
         String userAnswerTxt = currQuestionOptions.get(userAnswerInt);
@@ -35,11 +37,11 @@ public class QuestionSummaryActivity extends ActionBarActivity {
 
         TextView userAnswer = (TextView) findViewById(R.id.user_answer);
         userAnswer.setText(String.format(getResources().getString(R.string.user_answer),
-                userAnswerTxt));//, correctAnswerTxt));
+                userAnswerTxt, correctAnswerTxt));//, correctAnswerTxt));
 
         TextView userTotal = (TextView) findViewById(R.id.user_total);
         userTotal.setText(String.format(getResources().getString(R.string.user_total),
-                topic.getTotalCorrect()));//, topic.getCurrQuestion()));
+                topic.getTotalCorrect(), topic.getCurrQuestion()));//, topic.getCurrQuestion()));
 
         topic.incrementCurrentQuestion(); //Increments to next question
     }

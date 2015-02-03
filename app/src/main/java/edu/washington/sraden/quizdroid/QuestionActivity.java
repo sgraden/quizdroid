@@ -28,7 +28,7 @@ public class QuestionActivity extends ActionBarActivity {
 
         Intent thisActivity = getIntent();
         int currQuestionInt = thisActivity.getIntExtra("currQuestion", 0); //Current question int
-        final Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Topic object
+        Topic topic = (Topic) thisActivity.getSerializableExtra("topic"); //Topic object
         currQuestion = topic.getQuestions().get(currQuestionInt); //Current question object
 
         //Sets question text
@@ -40,20 +40,21 @@ public class QuestionActivity extends ActionBarActivity {
 
         Button bSubmit = (Button) findViewById(R.id.submit_question);
         bSubmit.setEnabled(false);
+        final Topic toSend = topic;
         // On button click Open 2nd activity
         bSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (chosenValue != -1) { //an answer has been chosen
                     if (chosenValue == currQuestion.getCorrectOption()) {
-                        topic.incrementTotalCorrect();
+                        toSend.incrementTotalCorrect();
                     }
                     //topic.incrementCurrentQuestion();
 
                     // cannot use just this cuz this refers to the listener, not the outer this
                     Intent nextActivity = new Intent(QuestionActivity.this, QuestionSummaryActivity.class);
 
-                    nextActivity.putExtra("questions", topic);
+                    nextActivity.putExtra("topic", toSend);
                     nextActivity.putExtra("userAnswer", chosenValue);
 
                     startActivity(nextActivity);
