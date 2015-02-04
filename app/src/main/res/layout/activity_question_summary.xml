@@ -9,15 +9,20 @@
 
     <TextView android:id="@+id/user_answer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="10pt"/>
 
     <TextView android:id="@+id/user_total"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
 
     <Button android:id="@+id/summary_next"
         android:text="@string/summary_next"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="10pt"/>
 
 </LinearLayout>

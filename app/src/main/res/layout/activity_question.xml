@@ -9,11 +9,16 @@
 
     <TextView android:id="@+id/question_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="12pt"
+        android:layout_gravity="center_horizontal"/>
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textSize="12pt"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp">
 
         <RadioButton android:id="@+id/button1"
             android:tag="0"
@@ -29,6 +34,12 @@
 
         <RadioButton android:id="@+id/button3"
             android:tag="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton android:id="@+id/button4"
+            android:tag="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onRadioButtonClicked"/>

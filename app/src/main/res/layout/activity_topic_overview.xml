@@ -10,11 +10,13 @@
     <TextView android:id="@+id/topic_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="14pt"/>
+        android:textSize="14pt"
+        android:layout_marginBottom="20dp"/>
 
     <Button android:id="@+id/start_questions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/overview_start"/>
+        android:text="@string/overview_start"
+        android:textSize="10pt"/>
 
 </LinearLayout>

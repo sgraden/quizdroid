@@ -84,6 +84,9 @@ public class QuestionActivity extends ActionBarActivity {
 
         Button b3 = (RadioButton) findViewById(R.id.button3);
         b3.setText(currQuestion.getOptions().get(2));
+
+        Button b4 = (RadioButton) findViewById(R.id.button4);
+        b4.setText(currQuestion.getOptions().get(3));
     }
 
 
