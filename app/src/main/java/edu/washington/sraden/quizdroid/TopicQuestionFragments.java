@@ -6,13 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -24,27 +22,28 @@ import java.util.Arrays;
 public class TopicQuestionFragments extends ActionBarActivity {
 
     private final String TAG = "TopicQuestionFragments";
-    private boolean noMoreQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_question_fragments);
 
-        Intent thisActivity = getIntent();
+        Intent thisActivity = getIntent(); //Grab intent from Topics activity
 
         if (savedInstanceState == null) {
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            FragmentManager fragmentManager = getSupportFragmentManager(); //Get fragment Manager
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction(); //Start transaction
 
-            TopicOverviewFragment overview = new TopicOverviewFragment();
-            Bundle overviewBundle = new Bundle();
-            overviewBundle.putString("topic", thisActivity.getStringExtra("topic"));
-            overview.setArguments(overviewBundle);
+            TopicOverviewFragment overview = new TopicOverviewFragment(); // Topic overview fragment
+
+            Bundle overviewBundle = new Bundle(); //Bundle to send to overview fragment
+            overviewBundle.putString("topic", thisActivity.getStringExtra("topic")); //add the topic
+
+            overview.setArguments(overviewBundle); //Assign to fragment transaction
 
             fragmentTransaction.add(R.id.container, overview);
-            fragmentTransaction.commit();
+            fragmentTransaction.commit(); //Start fragment Topic overview
 
         }
     }
@@ -96,7 +95,6 @@ public class TopicQuestionFragments extends ActionBarActivity {
             createTopics(math, physics, marvel);
 
             final Topic toSend;
-            Log.i("hello", "" + getArguments());
             String oldTopic = getArguments().getString("topic");
             if (oldTopic.equals("math")) {
                 toSend = math;
@@ -116,6 +114,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
                 public void onClick(View v) {
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
 
                     QuestionFragment question = new QuestionFragment();
                     Bundle questionBundle = new Bundle();
@@ -124,7 +123,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
                     question.setArguments(questionBundle);
 
                     fragmentTransaction.replace(R.id.container, question);
-                    fragmentTransaction.addToBackStack(null);
+                    //fragmentTransaction.addToBackStack(null);
 
                     fragmentTransaction.commit();
                 }
@@ -204,8 +203,8 @@ public class TopicQuestionFragments extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            Log.i("hello", "In question frag");
             rootView = inflater.inflate(R.layout.activity_question, container, false);
+            getActivity().setTitle(R.string.title_activity_question);
 
             chosenValue = -1; //Initializes
 
@@ -221,25 +220,34 @@ public class TopicQuestionFragments extends ActionBarActivity {
             setButtonText(currQuestion);
 
             Button bSubmit = (Button) rootView.findViewById(R.id.submit_question);
-            bSubmit.setEnabled(false);
+            bSubmit.setEnabled(false); //Sets submit enabled to false
             final Topic toSend = topic;
-            // On button click Open 2nd activity
+
+            // On button click Open Question Summary activity
             bSubmit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (chosenValue != -1) { //an answer has been chosen
-                        if (chosenValue == currQuestion.getCorrectOption()) {
-                            toSend.incrementTotalCorrect();
-                        }
-                        // cannot use just this cuz this refers to the listener, not the outer this
-                        //Intent nextActivity = new Intent(QuestionActivity.this, QuestionSummaryActivity.class);
-
-                        //nextActivity.putExtra("topic", toSend);
-                        //nextActivity.putExtra("userAnswer", chosenValue);
-
-                        //startActivity(nextActivity);
-                        //finish(); // kill this instance self (this activity)
+                if (chosenValue != -1) { //an answer has been chosen
+                    if (chosenValue == currQuestion.getCorrectOption()) {
+                        toSend.incrementTotalCorrect();
                     }
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
+
+                    QuestionSummaryFragment questionSummary = new QuestionSummaryFragment();
+                    Bundle questionBundle = new Bundle();
+                    questionBundle.putSerializable("topic", toSend);
+                    questionBundle.putInt("userAnswer", chosenValue);
+
+                    questionSummary.setArguments(questionBundle);
+
+                    fragmentTransaction.replace(R.id.container, questionSummary);
+                    //fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
                 }
             });
 
@@ -293,6 +301,98 @@ public class TopicQuestionFragments extends ActionBarActivity {
                 }
             });
         }
+
+    }
+
+    /**
+     * A fragment for the Question Summary.
+     */
+    public static class QuestionSummaryFragment extends Fragment {
+
+        View rootView;
+        private boolean noMoreQuestions;
+
+        public QuestionSummaryFragment() {
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            rootView = inflater.inflate(R.layout.activity_question_summary, container, false);
+            getActivity().setTitle(R.string.title_activity_question_summary);
+
+
+
+            noMoreQuestions = false; //intitalize noMoreQuestions
+
+            int userAnswerInt = getArguments().getInt("userAnswer", 0); //Intents user answer
+            Topic topic = (Topic) getArguments().getSerializable("topic"); //Grabs Topic from intent
+
+            ArrayList<Question> topicQuestionList = topic.getQuestions();
+
+            Question currQuestion = topicQuestionList.get(topic.getCurrQuestion());
+            ArrayList<String> currQuestionOptions = currQuestion.getOptions();
+
+            String userAnswerTxt = currQuestionOptions.get(userAnswerInt);
+            String correctAnswerTxt = currQuestionOptions.get(currQuestion.getCorrectOption());
+
+            TextView userAnswer = (TextView) rootView.findViewById(R.id.user_answer);
+            userAnswer.setText("You chose " + userAnswerTxt +
+                    " for your answer. The correct answer is " + correctAnswerTxt + ".");//, correctAnswerTxt));
+
+            TextView userTotal = (TextView) rootView.findViewById(R.id.user_total);
+            userTotal.setText("You have " + topic.getTotalCorrect() +
+                    " out of " + (topic.getCurrQuestion() + 1) + " correct.");//, topic.getCurrQuestion()));
+
+            final Topic toSend = topic;
+            Button bNextQuestion = (Button) rootView.findViewById(R.id.summary_next);
+
+            if (topicQuestionList.size() - 1 == topic.getCurrQuestion()) {
+                bNextQuestion.setText("Return to Home");
+                noMoreQuestions = true;
+            }
+
+            bNextQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                if (!noMoreQuestions) {
+                    toSend.incrementCurrentQuestion();
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left);
+
+                    QuestionFragment question = new QuestionFragment();
+                    Bundle questionBundle = new Bundle();
+                    questionBundle.putSerializable("topic", toSend);
+
+                    question.setArguments(questionBundle);
+
+                    fragmentTransaction.replace(R.id.container, question);
+
+                    fragmentTransaction.commit();
+                } else {
+                    Intent nextActivity = new Intent(getActivity(), TopicActivity.class);
+                    startActivity(nextActivity);
+                    getActivity().finish(); // kill this instance self (this activity)
+                }
+                }
+            });
+
+            return rootView;
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+        }
+
 
     }
 }

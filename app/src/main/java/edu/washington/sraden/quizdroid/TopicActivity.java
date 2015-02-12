@@ -52,19 +52,6 @@ public class TopicActivity extends ActionBarActivity {
         myListView.setOnItemClickListener(mMessageClickedHandler);
     }
 
-//    private class myArrayAdapter extends ArrayAdapter<String> {
-//        private Context cont;
-//        private int textViewID;
-//        private String[] stringArr;
-//
-//        public myArrayAdapter(Context cont, int textViewID, String[] stringArr) {
-//            super(cont, textViewID, stringArr);
-//
-//            this.cont = cont;
-//            this.textViewID = textViewID;
-//            this.stringArr = stringArr;
-//        }
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
