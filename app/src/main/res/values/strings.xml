@@ -7,20 +7,22 @@
     <string name="title_activity_topic_overview">Topic Overview</string>
     <string name="title_activity_question">Question</string>
     <string name="title_activity_question_summary">Question Summary</string>
-
     <string name="question_submit">Submit</string>
     <string name="summary_next">Next Question</string>
     <string name="overview_start">Start Questions</string>
 
-    <!--<string name="user_answer">You chose %s for your answer. The correct answer is .</string>-->
-    <!--<string name="user_total">You have %d out of  correct.</string>-->
+    <!-- <string name="user_answer">You chose %s for your answer. The correct answer is .</string> -->
+    <!-- <string name="user_total">You have %d out of  correct.</string> -->
 
-    <!--<plurals name="user_answer"-->
-        <!--formatted="false">-->
-        <!--<item quantity="other">You chose %s for your answer. The correct answer is %s.</item>-->
-    <!--</plurals>-->
-    <!--<plurals name="user_total">-->
-        <!--<item quantity="other">You have %d out of %d correct.</item>-->
-    <!--</plurals>-->
+
+    <!-- <plurals name="user_answer" -->
+    <!-- formatted="false"> -->
+    <!-- <item quantity="other">You chose %s for your answer. The correct answer is %s.</item> -->
+    <!-- </plurals> -->
+    <!-- <plurals name="user_total"> -->
+    <!-- <item quantity="other">You have %d out of %d correct.</item> -->
+    <!-- </plurals> -->
+
+    <string name="title_activity_topic_question_fragments">Topic Overview</string>
 
 </resources>

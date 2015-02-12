@@ -34,8 +34,9 @@ public class TopicActivity extends ActionBarActivity {
         AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Log.i(TAG, "" + position);
-                //String clickedtext = (TextView) v.getText();
-                Intent nextActivity = new Intent(TopicActivity.this, TopicOverviewActivity.class);
+
+                //Launches TopicQuestionFragments activity
+                Intent nextActivity = new Intent(TopicActivity.this, TopicQuestionFragments.class);
                 if (position == 0) { //Math
                     nextActivity.putExtra("topic", "math");
                 } else if (position == 1) { //Physics
