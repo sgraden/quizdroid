@@ -7,7 +7,8 @@ import java.util.ArrayList;
  * Created by steven on 2/2/15.
  */
 public class Topic implements Serializable {
-    private String description;
+    private String shortDesc;
+    private String longDesc;
     private ArrayList<Question> questions;
     private int currQuestion;
     private int totalCorrect;
@@ -18,20 +19,26 @@ public class Topic implements Serializable {
 
     public Topic(String description, ArrayList<Question> questions,
                  int currQuestion, int totalCorrect) {
-        this.description = description;
+        this.shortDesc = description;
         this.questions = questions;
         this.currQuestion = currQuestion;
         this.totalCorrect = totalCorrect;
-        //this.totalComplete = totalComplete;
-
     }
 
-    public String getDescription() {
-        return description;
+    public String getShortDesc() {
+        return shortDesc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
+
+    public String getLongDesc() {
+        return longDesc;
+    }
+
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
     }
 
     public ArrayList<Question> getQuestions() {

@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -41,7 +38,7 @@ public class TopicOverviewActivity extends ActionBarActivity {
         }
 
         TextView tvDescription = (TextView) findViewById(R.id.topic_description);
-        tvDescription.setText(toSend.getDescription());
+        tvDescription.setText(toSend.getShortDesc());
 
         Button bStartQuestions = (Button) findViewById(R.id.start_questions);
         // On button click Open 2nd activity
@@ -62,7 +59,7 @@ public class TopicOverviewActivity extends ActionBarActivity {
     public void createTopics(Topic math, Topic physics, Topic marvel) {
         ArrayList<Question> quest = new ArrayList<Question>();
         //math creation
-        math.setDescription("Math is the study of topics such as quantity, structure, space, and change");
+        math.setShortDesc("Math is the study of topics such as quantity, structure, space, and change");
         quest.add(new Question("2 + 2 =",
                 new ArrayList<>(Arrays.asList("4", "2", "22", "100")), 0));
         quest.add(new Question("7 x 7 =",
@@ -75,7 +72,7 @@ public class TopicOverviewActivity extends ActionBarActivity {
 
         //physics creation
         quest = new ArrayList<>(); //Empties ArrayList
-        physics.setDescription("Physics - About gravity and...shtuff");
+        physics.setShortDesc("Physics - About gravity and...shtuff");
         quest.add(new Question("Acceleration of an object due to gravity?",
                 new ArrayList<>(Arrays.asList("9.8 m/s/s", "10 mi/s", "1 in/s", "Magic")), 0));
         quest.add(new Question("If you shoot something backwards the same rate you are moving " +
@@ -93,7 +90,7 @@ public class TopicOverviewActivity extends ActionBarActivity {
 
         //marvel creation
         quest = new ArrayList<>(); //Empties arraylist
-        marvel.setDescription("Marvel Comics, better than DC");
+        marvel.setShortDesc("Marvel Comics, better than DC");
         quest.add(new Question("Iron Man's real name?",
                 new ArrayList<>(Arrays.asList("Abigail", "Banana", "Tony Stark", "Mark")), 2));
         quest.add(new Question("Name of Thor's hammer?",
