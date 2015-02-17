@@ -7,6 +7,10 @@ import java.util.ArrayList;
  */
 public interface TopicRepository {
 
+    public String getTitle();
+
+    public void setTitle(String title);
+
     public String getShortDesc();
 
     public void setShortDesc(String shortDesc);
@@ -19,7 +23,9 @@ public interface TopicRepository {
 
     public void setQuestions(ArrayList<Question> questions);
 
-    public int getCurrQuestion();
+    public Question getCurrQuestion();
+
+    public int getCurrQuestionNum();
 
     public void incrementCurrentQuestion();
 

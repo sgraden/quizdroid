@@ -13,6 +13,11 @@
         android:layout_height="wrap_content"
         android:textSize="10pt"/>
 
+    <TextView android:id="@+id/correct_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"/>
+
     <TextView android:id="@+id/user_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

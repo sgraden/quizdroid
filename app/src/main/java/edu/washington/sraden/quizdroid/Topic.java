@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * Created by steven on 2/2/15.
  */
 public class Topic implements Serializable {
+    private String title;
     private String shortDesc;
     private String longDesc;
     private ArrayList<Question> questions;
@@ -14,15 +15,14 @@ public class Topic implements Serializable {
     private int totalCorrect;
 
     public Topic() {
-        this(null, null, 0, 0);
     }
 
-    public Topic(String description, ArrayList<Question> questions,
-                 int currQuestion, int totalCorrect) {
-        this.shortDesc = description;
-        this.questions = questions;
-        this.currQuestion = currQuestion;
-        this.totalCorrect = totalCorrect;
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getShortDesc() {
@@ -49,7 +49,11 @@ public class Topic implements Serializable {
         this.questions = questions;
     }
 
-    public int getCurrQuestion() {
+    public Question getCurrQuestion() {
+        return questions.get(currQuestion);
+    }
+
+    public int getCurrQuestionNum() {
         return currQuestion;
     }
 

@@ -1,17 +1,16 @@
 package edu.washington.sraden.quizdroid;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class TopicActivity extends ActionBarActivity {
@@ -23,29 +22,18 @@ public class TopicActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
 
-        String[] myStringArray = new String[] {"Math", "Physics", "Marvel Super Heroes"};
-        //ArrayAdapter context, TextView layout, String[]
-        ArrayAdapter<String> arrAdapter =
-                new ArrayAdapter<String>(this, R.layout.topic_text_view, myStringArray);
+        TopicListAdapter topicListAdapter =
+                new TopicListAdapter(this, R.layout.topic_list_adapter_layout, QuizApp.getInstance().getTopics());
         ListView myListView = (ListView) findViewById(R.id.topic_list);
-        myListView.setAdapter(arrAdapter);
+        myListView.setAdapter(topicListAdapter);
 
         //item click listener override
         AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Log.i(TAG, "" + position);
-
                 //Launches TopicQuestionFragments activity
                 Intent nextActivity = new Intent(TopicActivity.this, TopicQuestionFragments.class);
-                if (position == 0) { //Math
-                    nextActivity.putExtra("topic", "math");
-                } else if (position == 1) { //Physics
-                    nextActivity.putExtra("topic", "physics");
-                } else if (position == 2) { //Marvel
-                    nextActivity.putExtra("topic", "marvel");
-                }
+                QuizApp.getInstance().setCurrTopic(position); //Setup current topic
                 startActivity(nextActivity);
-                //finish();
             }
         };
 

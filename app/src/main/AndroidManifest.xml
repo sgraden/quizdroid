@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.washington.sraden.quizdroid">
+    <uses-permission android:name="android.permission.internet" />
 
     <application
         android:allowBackup="true"
@@ -18,26 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".TopicOverviewActivity"-->
-            <!--android:label="@string/title_activity_topic_overview"-->
-            <!--android:parentActivityName=".TopicActivity" >-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="edu.washington.sraden.quizdroid.TopicActivity" />-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name=".QuestionActivity"-->
-            <!--android:label="@string/title_activity_question"-->
-            <!--android:parentActivityName=".TopicActivity" >-->
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="edu.washington.sraden.quizdroid.TopicActivity" />-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name=".QuestionSummaryActivity"-->
-            <!--android:label="@string/title_activity_question_summary" >-->
-        <!--</activity>-->
         <activity
             android:name=".TopicQuestionFragments"
             android:label="@string/title_activity_topic_question_fragments" >
