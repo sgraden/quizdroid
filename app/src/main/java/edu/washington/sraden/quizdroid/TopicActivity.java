@@ -23,7 +23,7 @@ public class TopicActivity extends ActionBarActivity {
         setContentView(R.layout.activity_topic);
 
         TopicListAdapter topicListAdapter =
-                new TopicListAdapter(this, R.layout.topic_list_adapter_layout, QuizApp.getInstance().getTopics());
+                new TopicListAdapter(this, R.layout.topic_list_adapter_layout, QuizApp.getInstance().getRepository().getTopics());
         ListView myListView = (ListView) findViewById(R.id.topic_list);
         myListView.setAdapter(topicListAdapter);
 
@@ -32,7 +32,7 @@ public class TopicActivity extends ActionBarActivity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 //Launches TopicQuestionFragments activity
                 Intent nextActivity = new Intent(TopicActivity.this, TopicQuestionFragments.class);
-                QuizApp.getInstance().setCurrTopic(position); //Setup current topic
+                QuizApp.getInstance().getRepository().setCurrTopic(position); //Setup current topic
                 startActivity(nextActivity);
             }
         };

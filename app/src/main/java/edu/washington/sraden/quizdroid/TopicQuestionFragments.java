@@ -84,7 +84,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
 
             //Set the textview with the topic description
             TextView tvDescription = (TextView) rootView.findViewById(R.id.topic_description);
-            tvDescription.setText(QuizApp.getInstance().getLongDesc());
+            tvDescription.setText(QuizApp.getInstance().getRepository().getLongDesc());
 
             // On button click Open Question activity
             Button bStartQuestions = (Button) rootView.findViewById(R.id.start_questions);
@@ -137,7 +137,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
 
             chosenValue = -1; //Initializes
 
-            currQuestion = QuizApp.getInstance().getCurrQuestion();//topic.getQuestions().get(topic.getCurrQuestion()); //Current question object
+            currQuestion = QuizApp.getInstance().getRepository().getCurrQuestion();//topic.getQuestions().get(topic.getCurrQuestion()); //Current question object
 
             //Sets question text
             TextView questionText = (TextView) rootView.findViewById(R.id.question_text); //Text for question
@@ -155,7 +155,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
                 public void onClick(View v) {
                 if (chosenValue != -1) { //an answer has been chosen
                     if (chosenValue == currQuestion.getCorrectOption()) {
-                        QuizApp.getInstance().incrementTotalCorrect();
+                        QuizApp.getInstance().getRepository().incrementTotalCorrect();
                     }
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -257,9 +257,9 @@ public class TopicQuestionFragments extends ActionBarActivity {
             int userAnswerInt = getArguments().getInt("userAnswer"); //Intents user answer
 
             QuizApp app = QuizApp.getInstance();
-            ArrayList<Question> topicQuestionList = app.getQuestions();
+            ArrayList<Question> topicQuestionList = app.getRepository().getQuestions();
 
-            Question currQuestion = app.getCurrQuestion();
+            Question currQuestion = app.getRepository().getCurrQuestion();
             ArrayList<String> currQuestionOptions = currQuestion.getOptions();
 
             String userAnswerTxt = currQuestionOptions.get(userAnswerInt);
@@ -271,12 +271,12 @@ public class TopicQuestionFragments extends ActionBarActivity {
             correctAnswer.setText("Correct answer: " + correctAnswerTxt);
 
             TextView userTotal = (TextView) rootView.findViewById(R.id.user_total);
-            userTotal.setText("You have " + app.getTotalCorrect() +
-                    " out of " + (app.getCurrQuestionNum() + 1) + " correct.");//, topic.getCurrQuestion()));
+            userTotal.setText("You have " + app.getRepository().getTotalCorrect() +
+                    " out of " + (app.getRepository().getCurrQuestionNum() + 1) + " correct.");//, topic.getCurrQuestion()));
 
             //final Topic toSend = topic;
             Button bNextQuestion = (Button) rootView.findViewById(R.id.summary_next);
-            if (topicQuestionList.size() - 1 == app.getCurrQuestionNum()) {
+            if (topicQuestionList.size() - 1 == app.getRepository().getCurrQuestionNum()) {
                 bNextQuestion.setText("Return to Home");
                 noMoreQuestions = true;
             }
@@ -285,7 +285,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                 if (!noMoreQuestions) {
-                    QuizApp.getInstance().incrementCurrentQuestion();
+                    QuizApp.getInstance().getRepository().incrementCurrentQuestion();
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
