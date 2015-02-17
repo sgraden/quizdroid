@@ -25,6 +25,7 @@ public class TopicListAdapter extends ArrayAdapter<Topic> {
         if (contextView == null) {
             contextView = LayoutInflater.from(mContext).inflate(R.layout.topic_list_adapter_layout, parent, false);
         }
+
         TextView topicTitle = (TextView) contextView.findViewById(R.id.topic_title);
         topicTitle.setText(getItem(position).getTitle());
 
