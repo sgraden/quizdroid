@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QuizDroid</string>
+    <string name="action_settings">Settings</string>
+    <!--<string name="title_activity_topic_overview">Topic Overview</string>-->
+    <string name="title_activity_question">Question</string>
+    <string name="title_activity_question_summary">Question Summary</string>
+    <string name="question_submit">Submit</string>
+    <string name="summary_next">Next Question</string>
+    <string name="overview_start">Start Questions</string>
+
+    <!-- <string name="user_answer">You chose %s for your answer. The correct answer is .</string> -->
+    <!-- <string name="user_total">You have %d out of  correct.</string> -->
+
+    <string name="title_activity_topic_question_fragments">Topic Overview</string>
+
+</resources>
