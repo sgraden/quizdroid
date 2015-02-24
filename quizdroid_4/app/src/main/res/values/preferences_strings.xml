@@ -9,6 +9,6 @@
     <!--Download Frequency Preference Strings-->
     <string name="pref_frequency">frequency</string>
     <string name="pref_frequency_title">Download Frequency</string>
-    <string name="pref_frequency_default">10</string>
+    <string name="pref_frequency_default">5</string>
     <string name="pref_frequency_summary">Frequency to check for updated quiz (min)</string>
 </resources>

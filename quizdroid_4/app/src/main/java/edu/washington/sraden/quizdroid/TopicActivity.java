@@ -41,6 +41,12 @@ public class TopicActivity extends ActionBarActivity {
         myListView.setOnItemClickListener(mMessageClickedHandler);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        QuizApp.getInstance().cancel(); //Cancels alarm on close
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,5 +74,9 @@ public class TopicActivity extends ActionBarActivity {
     private void inflateSettings() {
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivityForResult(i, 1);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        QuizApp.getInstance().setChanged(true);
     }
 }

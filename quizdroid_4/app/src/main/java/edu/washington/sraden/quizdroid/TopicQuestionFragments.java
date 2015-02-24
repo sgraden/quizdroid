@@ -42,6 +42,12 @@ public class TopicQuestionFragments extends ActionBarActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        QuizApp.getInstance().cancel();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_topic_question_fragments, menu);
@@ -68,6 +74,10 @@ public class TopicQuestionFragments extends ActionBarActivity {
         // Display the fragment as the main content.
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivityForResult(i, 1);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        QuizApp.getInstance().setChanged(true);
     }
 
 

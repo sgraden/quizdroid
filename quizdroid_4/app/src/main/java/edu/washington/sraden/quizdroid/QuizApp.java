@@ -5,6 +5,9 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,10 +24,11 @@ public class QuizApp extends Application {
     private static QuizApp instance;
     private TopicsRepo repository;
 
-    private boolean isDownloading;
+    private boolean settingsChanged;
     private PendingIntent pendingIntent; //Background intent for the alarm
     private boolean started; //Whether the alarm has be started
     private static final int INTENT_ID = 1;
+    private ArrayList<String> preferences = new ArrayList<>(); //0->Frequency, 1->URL
 
 
     public QuizApp() {
@@ -43,12 +47,21 @@ public class QuizApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         //Sets the default values - false means only on first use.
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        preferences.add(sharedPref.getString("frequency", "5")); //Initialize the arr
+        preferences.add(sharedPref.getString("downloadURL", "")); //Initialize the arr
+
+        /* Retrieve a PendingIntent that will perform a broadcast */
+        Intent alarmIntent = new Intent(QuizApp.this, AlarmReceiver.class);
+
+        pendingIntent = PendingIntent.getBroadcast(QuizApp.this, INTENT_ID,
+                alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        start(Integer.parseInt(preferences.get(0))); //Start the alarm on create with the preferred freq
 
         this.repository = new TopicsRepo();
-        Log.i(TAG, "Holy crap it works!");
     }
 
     public TopicsRepo getRepository() {
@@ -56,28 +69,43 @@ public class QuizApp extends Application {
     }
 
     public void setDownloading(boolean setting) {
-        isDownloading = setting;
+        started = setting;
     }
 
     public boolean getDownloading() {
-        return isDownloading;
+        return started;
+    }
+
+    public ArrayList<String> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(int index, String value) {
+        preferences.set(index, value);
+    }
+
+    public void setChanged(boolean changed) {
+        this.settingsChanged = changed;
+    }
+
+    public boolean getChanged() {
+        return settingsChanged;
     }
 
     public void start(int interval) {
-        started = true;
-        interval = interval * 1000;// * 60; //Converts min to milli
+        setDownloading(true);
+        interval = interval * 1000 * 60; //Converts min to milli
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 
     public void cancel() {
-        started = false;
+        setDownloading(false);
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
         pendingIntent.cancel();
-        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
 
 }
