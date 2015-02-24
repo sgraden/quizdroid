@@ -53,14 +53,21 @@ public class TopicQuestionFragments extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                inflateSettings();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item); //default returns false
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    //Inflates the SettingsActivity Activity
+    private void inflateSettings() {
+        // Display the fragment as the main content.
+        Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivityForResult(i, 1);
     }
 
 
