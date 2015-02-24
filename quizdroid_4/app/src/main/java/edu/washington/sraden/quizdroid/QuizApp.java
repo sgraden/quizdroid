@@ -1,9 +1,14 @@
 package edu.washington.sraden.quizdroid;
 
 
+import android.app.AlarmManager;
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,7 +20,11 @@ public class QuizApp extends Application {
     private final static String TAG = "QuizApp";
     private static QuizApp instance;
     private TopicsRepo repository;
+
     private boolean isDownloading;
+    private PendingIntent pendingIntent; //Background intent for the alarm
+    private boolean started; //Whether the alarm has be started
+    private static final int INTENT_ID = 1;
 
 
     public QuizApp() {
@@ -52,6 +61,23 @@ public class QuizApp extends Application {
 
     public boolean getDownloading() {
         return isDownloading;
+    }
+
+    public void start(int interval) {
+        started = true;
+        interval = interval * 1000;// * 60; //Converts min to milli
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+    }
+
+    public void cancel() {
+        started = false;
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        manager.cancel(pendingIntent);
+        pendingIntent.cancel();
+        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -13,9 +13,7 @@ import android.widget.Toast;
  * Created by Steven on 2/23/15.
  */
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-    private PendingIntent pendingIntent; //Background intent for the alarm
-    private boolean started; //Whether the alarm has be started
-    private static final int INTENT_ID = 1;
+
     private static final String KEY_PREF_SYNC_CONN = "pref_syncConnectionType";
 
     @Override
@@ -52,21 +50,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
-    public void start(int interval) {
-        started = true;
-        interval = interval * 1000;// * 60; //Converts min to milli
 
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
-    }
-
-    public void cancel() {
-        started = false;
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);
-        pendingIntent.cancel();
-        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
-    }
 
 }
