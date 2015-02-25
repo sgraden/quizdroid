@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             app.setPreferences(0, sharedPref.getString("frequency", "5")); //Update pref cache
             app.setPreferences(1, sharedPref.getString("downloadURL", "")); //Update pref Cache
             app.setChanged(false);
-            app.start(Integer.parseInt(preferences.get(0))); //Start the new alarm
+            app.start(); //Start the new alarm
         }
 
         //Grab the URL and the frequency and toast it.
@@ -32,6 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // For our recurring task, we'll just display a message
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Log.i("hello", "Alarm Received"); //Seems to be firing many times at start
     }
 
 }

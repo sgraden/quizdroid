@@ -122,11 +122,6 @@ public class TopicQuestionFragments extends ActionBarActivity {
             return rootView;
         }
 
-        @Override
-        public void onPause() {
-            super.onPause();
-        }
-
     }
 
     /**

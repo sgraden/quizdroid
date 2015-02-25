@@ -1,5 +1,6 @@
 package edu.washington.sraden.quizdroid;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,21 @@ public class TopicActivity extends ActionBarActivity {
         };
 
         myListView.setOnItemClickListener(mMessageClickedHandler);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        QuizApp app = QuizApp.getInstance();
+        //Grab the existing alarm based on ID and check if it is already made.
+        Intent alarmIntent = new Intent(TopicActivity.this, AlarmReceiver.class);
+        boolean started = (PendingIntent.getBroadcast(TopicActivity.this, 1, alarmIntent,
+                PendingIntent.FLAG_NO_CREATE) != null);
+        if (started) { //If alarm already exists
+            Toast.makeText(TopicActivity.this, "Alarm Exists", Toast.LENGTH_SHORT).show();
+        } else {
+            app.start();
+        }
     }
 
     @Override

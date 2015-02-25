@@ -24,7 +24,7 @@ public class QuizApp extends Application {
     private static QuizApp instance;
     private TopicsRepo repository;
 
-    private boolean settingsChanged;
+    private boolean settingsChanged = false;
     private PendingIntent pendingIntent; //Background intent for the alarm
     private boolean started; //Whether the alarm has be started
     private static final int INTENT_ID = 1;
@@ -59,7 +59,7 @@ public class QuizApp extends Application {
 
         pendingIntent = PendingIntent.getBroadcast(QuizApp.this, INTENT_ID,
                 alarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        start(Integer.parseInt(preferences.get(0))); //Start the alarm on create with the preferred freq
+        start(); //Start the alarm on create with the preferred freq
 
         this.repository = new TopicsRepo();
     }
@@ -92,12 +92,13 @@ public class QuizApp extends Application {
         return settingsChanged;
     }
 
-    public void start(int interval) {
+    public void start() {
         setDownloading(true);
-        interval = interval * 1000 * 60; //Converts min to milli
+        int interval = Integer.parseInt(preferences.get(0)) * 1000;// * 60; //Converts min to milli;
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        //Log.i("hello", "I am starting");
     }
 
     public void cancel() {
@@ -105,7 +106,7 @@ public class QuizApp extends Application {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
         pendingIntent.cancel();
-        //Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
 
 }
