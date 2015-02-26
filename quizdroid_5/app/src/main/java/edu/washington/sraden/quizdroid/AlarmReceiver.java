@@ -18,6 +18,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         QuizApp app = QuizApp.getInstance();
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         ArrayList<String> preferences = app.getPreferences(); //Get pref cache
 
@@ -33,7 +34,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // For our recurring task, we'll just display a message
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-        Log.i("hello", "Alarm Received"); //Seems to be firing many times at start
+        //Log.i("hello", "Alarm Received"); //Seems to be firing many times at start
     }
 
 }

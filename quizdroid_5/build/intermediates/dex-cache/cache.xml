@@ -9,6 +9,13 @@
         <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_3/app/build/intermediates/pre-dexed/debug/classes-7620226a56aa55cdef9aa7a756efee1c81d92bb2.jar" />
     </item>
     <item
+        jar="/Users/Steven/.gradle/caches/modules-2/files-2.1/com.mcxiaoke.volley/library/1.0.10/8d62b91f5ccb6f7f872313191c016c03bb61a792/library-1.0.10.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8d62b91f5ccb6f7f872313191c016c03bb61a792">
+        <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/pre-dexed/debug/library-1.0.10-ccfabb151cf91ac878afe7c6475e28fb7745f33e.jar" />
+    </item>
+    <item
         jar="/Users/Steven/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -30,11 +37,25 @@
         <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_3/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-043c3474cfdb5a0aa363559533f1cee2e86089be.jar" />
     </item>
     <item
+        jar="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/pre-dexed/debug/classes-dc126e514b1b4473cef67c6d2679ed6230215a5f.jar" />
+    </item>
+    <item
         jar="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_4/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_4/app/build/intermediates/pre-dexed/debug/classes-bdb60773d7b08e09c7463af9a30c9678031ebb8d.jar" />
+    </item>
+    <item
+        jar="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-a8aae15e3d999cba9979003a0112b4f92f289ae2.jar" />
     </item>
     <item
         jar="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_3/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
@@ -49,6 +70,13 @@
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
         <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_4/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-38525b7db598ddca02d2e7761670e38920e970c8.jar" />
+    </item>
+    <item
+        jar="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/Steven/Documents/GitHub/quizdroid/quizdroid_5/app/build/intermediates/pre-dexed/debug/classes-bec7552a22309d0875578f8b9a68f4c6f070dd1c.jar" />
     </item>
 
 </items>
