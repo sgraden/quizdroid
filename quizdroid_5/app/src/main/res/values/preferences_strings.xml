@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--URL Preference Strings-->
+    <string name="pref_url">downloadURL</string>
+    <string name="pref_url_title">Download URL</string>
+    <string name="pref_url_default">http://tednewardsandbox.site44.com/questions.json</string>
+    <string name="pref_url_summary">The URL to download QuizDroid JSON from.</string>
+
+    <!--Download Frequency Preference Strings-->
+    <string name="pref_frequency">frequency</string>
+    <string name="pref_frequency_title">Download Frequency</string>
+    <string name="pref_frequency_default">5</string>
+    <string name="pref_frequency_summary">Frequency to check for updated quiz (min)</string>
+</resources>
