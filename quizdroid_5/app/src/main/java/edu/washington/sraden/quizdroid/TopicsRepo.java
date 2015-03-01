@@ -1,7 +1,10 @@
 package edu.washington.sraden.quizdroid;
 
+import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Steven on 2/17/15.
@@ -11,26 +14,120 @@ public class TopicsRepo implements TopicRepository {
     private ArrayList<Topic> topicList;
     private Integer currTopic;
 
-    public TopicsRepo() {
-        this.topicList = createQuestions(); //Create topics with their questions
+    public TopicsRepo(JSONArray jsonArr) {
+        Log.i("info", "Initializing Topics Repo: " + jsonArr.toString());
+        this.topicList = createTopics(jsonArr); //Create topics with their questions
     }
 
-    private ArrayList<Topic> createQuestions() {
-        Topic math = setMathTopic();
-        Topic physics = setPhysicsTopic();
-        Topic marvel = setMarvelTopic();
+    private ArrayList<Topic> createTopics (JSONArray jsonArray) {
+        //Try to read the JSONArray into a topic
+        ArrayList<Topic> topicList = new ArrayList<>(10);
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonTopic = jsonArray.getJSONObject(i);
+                Topic topic = new Topic();
+                topic.setTitle(jsonTopic.getString("title"));   //Get topic title
+                topic.setLongDesc(jsonTopic.getString("desc")); //Get topic Long Desc
+                topic.setQuestions(createQuestions(jsonTopic)); //Set questions
 
-        return new ArrayList<Topic>(Arrays.asList(math, physics, marvel));
-    }
-
-    public void setCurrTopic(int currTopic) {
-        this.currTopic = currTopic;
-    }
-
-    public ArrayList<Topic> getTopics() {
+                topicList.add(topic);
+            }
+        } catch (JSONException e) {
+            Log.d("exception", "Topics creation failed: " + e.toString());
+        }
         return topicList;
     }
 
+    private ArrayList<Question> createQuestions (JSONObject jsonTopic) {
+        ArrayList<Question> questionList = new ArrayList<>(5);
+        try {
+            //Grab the only object within the questions object
+            JSONObject jsonQuestionsInfo =
+                    new JSONArray(jsonTopic.getString("questions")).getJSONObject(0);
+            Question question = new Question();
+            question.setQuestion(jsonQuestionsInfo.getString("text")); //Get the question text
+            question.setCorrectOption(Integer.parseInt(jsonQuestionsInfo.getString("answer")) - 1); //Parse the correct answer
+
+            //Create the list of question options
+            JSONArray questionOptions = jsonQuestionsInfo.getJSONArray("answers");
+            ArrayList<String> optionsList = new ArrayList<>(5);
+            for (int i = 0; i < questionOptions.length(); i++) {
+                optionsList.add(questionOptions.getString(i));
+            }
+            question.setOptions(optionsList); //Set the question options
+
+            questionList.add(question);
+
+        } catch (JSONException e) {
+            Log.d("exception", "Questions creation failed: " + e.toString());
+
+        }
+        return questionList;
+    }
+
+    public void setCurrTopic (int currTopic) {
+        this.currTopic = currTopic;
+    }
+
+    public ArrayList<Topic> getTopics () {
+        return topicList;
+    }
+
+    /*BEGIN TOPICREPOSITORY INTERFACE*/
+    public String getTitle() {
+        return topicList.get(currTopic).getTitle();
+    }
+
+    public void setTitle(String title) {
+        topicList.get(currTopic).setTitle(title);
+    }
+
+    public String getShortDesc() {
+        return topicList.get(currTopic).getShortDesc();
+    }
+
+    public void setShortDesc(String shortDesc) {
+        topicList.get(currTopic).setShortDesc(shortDesc);
+    }
+
+    public String getLongDesc() {
+        return topicList.get(currTopic).getLongDesc();
+    }
+
+    public void setLongDesc(String longDesc) {
+        topicList.get(currTopic).setLongDesc(longDesc);
+    }
+
+    public ArrayList<Question> getQuestions() {
+        return topicList.get(currTopic).getQuestions();
+    }
+
+    public void setQuestions(ArrayList<Question> questions) {
+        topicList.get(currTopic).setQuestions(questions);
+    }
+
+    public Question getCurrQuestion() {
+        return topicList.get(currTopic).getCurrQuestion();
+    }
+
+    public int getCurrQuestionNum() {
+        return topicList.get(currTopic).getCurrQuestionNum();
+    }
+
+    public void incrementCurrentQuestion() {
+        topicList.get(currTopic).incrementCurrentQuestion();
+    }
+
+    public int getTotalCorrect() {
+        return topicList.get(currTopic).getTotalCorrect();
+    }
+
+    public void incrementTotalCorrect() {
+        topicList.get(currTopic).incrementTotalCorrect();
+    }
+    /*END TOPICREPOSITORY INTERFACE*/
+
+    /*
     private Topic setMathTopic() {
         Topic topic = new Topic();
         Question question = new Question();
@@ -142,60 +239,6 @@ public class TopicsRepo implements TopicRepository {
 
         return topic;
     }
-
-    /*BEGIN TOPICREPOSITORY INTERFACE*/
-    public String getTitle() {
-        return topicList.get(currTopic).getTitle();
-    }
-
-    public void setTitle(String title) {
-        topicList.get(currTopic).setTitle(title);
-    }
-
-    public String getShortDesc() {
-        return topicList.get(currTopic).getShortDesc();
-    }
-
-    public void setShortDesc(String shortDesc) {
-        topicList.get(currTopic).setShortDesc(shortDesc);
-    }
-
-    public String getLongDesc() {
-        return topicList.get(currTopic).getLongDesc();
-    }
-
-    public void setLongDesc(String longDesc) {
-        topicList.get(currTopic).setLongDesc(longDesc);
-    }
-
-    public ArrayList<Question> getQuestions() {
-        return topicList.get(currTopic).getQuestions();
-    }
-
-    public void setQuestions(ArrayList<Question> questions) {
-        topicList.get(currTopic).setQuestions(questions);
-    }
-
-    public Question getCurrQuestion() {
-        return topicList.get(currTopic).getCurrQuestion();
-    }
-
-    public int getCurrQuestionNum() {
-        return topicList.get(currTopic).getCurrQuestionNum();
-    }
-
-    public void incrementCurrentQuestion() {
-        topicList.get(currTopic).incrementCurrentQuestion();
-    }
-
-    public int getTotalCorrect() {
-        return topicList.get(currTopic).getTotalCorrect();
-    }
-
-    public void incrementTotalCorrect() {
-        topicList.get(currTopic).incrementTotalCorrect();
-    }
-    /*END TOPICREPOSITORY INTERFACE*/
-
+*/
 
 }

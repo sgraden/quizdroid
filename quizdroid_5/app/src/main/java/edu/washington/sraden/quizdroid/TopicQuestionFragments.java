@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class TopicQuestionFragments extends ActionBarActivity {
@@ -44,7 +42,7 @@ public class TopicQuestionFragments extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        QuizApp.getInstance().cancel();
+        QuizApp.getInstance().cancelAlarm();
     }
 
     @Override

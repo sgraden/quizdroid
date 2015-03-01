@@ -1,0 +1,18 @@
+[
+{
+    "title":"DEFAULT",
+    "desc":"No quiz file was able to download",
+    "questions":[
+            {
+                "text":"What should you do to download file?",
+                "answer":"1",
+                "answers":[
+                    "Check network connection",
+                    "Turn off Airplane Mode",
+                    "Completely Close application",
+                    "Reopen application"
+                ]
+            }
+    ]
+}
+]

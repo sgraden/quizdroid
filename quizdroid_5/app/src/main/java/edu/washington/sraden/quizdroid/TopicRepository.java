@@ -7,18 +7,6 @@ import java.util.ArrayList;
  */
 public interface TopicRepository {
 
-    public String getTitle();
-
-    public void setTitle(String title);
-
-    public String getShortDesc();
-
-    public void setShortDesc(String shortDesc);
-
-    public String getLongDesc();
-
-    public void setLongDesc(String longDesc);
-
     public ArrayList<Question> getQuestions();
 
     public void setQuestions(ArrayList<Question> questions);
