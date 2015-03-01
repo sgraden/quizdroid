@@ -1,0 +1,17 @@
+Check if networked
+	yes:
+		Begin alarm/download
+	no:
+		Alert user
+			yes:
+				if airplane mode -> navigate to settings
+				On return
+					try downloading
+					refresh list
+			no:
+				Try to read file
+
+
+Check if file exists (wait for file to finish)
+	yes:
+		read from file
